@@ -1,4 +1,4 @@
-FROM alpine:edge
+FROM alpine:3.6
 
 MAINTAINER Patrick Pokatilo <docker-hub@shyxormz.net>
 

@@ -8,6 +8,10 @@ Enables you to run [Capistrano](http://capistranorb.com/) deployments from your 
 
 * `private_key`: *Required.* The private key to use during deployment.
 
+* `svn_username`: *Optional.* The svn username used during deployment.
+
+* `svn_password`: *Optional.* The svn passwrod used during deployment.
+
 ### Example
 
 Resource configuration for production environment:
@@ -53,3 +57,5 @@ Deploying to production:
 #### Parameters
 
 * `path`: *Required.* The path to the directory that contains the Capistrano configuration.
+
+* `svn_revision`: *Optional.* The path to the file that contains the svn revision to deploy.

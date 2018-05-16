@@ -38,12 +38,23 @@ current_dir = Dir.pwd
 
 Dir.chdir("#{ARGV.first}/#{input[:params][:path]}")
 
+svn_revision = ""
+svn_revision_path = File.join(ARGV.first, input[:params][:svn_revision]) if input[:params][:svn_revision]
+svn_revision = File.open(svn_revision_path, &:gets) if File.file? svn_revision_path
+svn_revision.strip!
+
+if !/\A\d+\z/.match(svn_revision)
+  svn_revision = ""
+end
+
+Dir.chdir("#{ARGV.first}/#{input[:params][:path]}")
+
 gem 'bundler'
 require 'bundler/cli'
 
-ENV['SVN_USERNAME'] = input[:source][:svn_username] if [:source][:svn_username]
-ENV['SVN_PASSWORD'] = input[:source][:svn_password] if [:source][:svn_password]
-ENV['SVN_REVISION'] = input[:source][:svn_revision] if [:source][:svn_revision]
+ENV['SVN_USERNAME'] = input[:source][:svn_username] if input[:source][:svn_username]
+ENV['SVN_PASSWORD'] = input[:source][:svn_password] if input[:source][:svn_password]
+ENV['SVN_REVISION'] = svn_revision if ! svn_revision.empty?
 
 Bundler::CLI.new(
   [],
